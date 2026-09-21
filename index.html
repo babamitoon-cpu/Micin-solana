@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BABA CRYPTO - Multi-Chain On-Chain Tool</title>
+    <style>
+        :root {
+            --primary-bg: #E8F5E9;
+            --card-bg: #FFFFFF;
+            --text-main: #1B5E20;
+            --accent-green: #2E7D32;
+            --accent-orange: #EF6C00;
+            --accent-red: #C62828;
+            --border-color: #A5D6A7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: #333333;
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+            margin-top: 10px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .logo-emoji {
+            font-size: 32px;
+        }
+
+        .header h1 {
+            color: var(--text-main);
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .header p {
+            color: var(--accent-green);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .search-box {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .search-box label {
+            display: block;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 10px;
+            letter-spacing: 0.3px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1.5px solid #CCD9CC;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #333;
+            background-color: #FAFAFA;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-green);
+            background-color: #FFF;
+        }
+
+        .input-group button {
+            background-color: var(--text-main);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .input-group button:hover {
+            background-color: var(--accent-green);
+        }
+
+        .input-group button:disabled {
+            background-color: #9CB89C;
+            cursor: not-allowed;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 16px;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .data-label {
+            color: #556B55;
+            font-weight: 500;
+        }
+
+        .data-value {
+            font-weight: 700;
+            color: #222222;
+            text-align: right;
+        }
+
+        .data-value.highlight {
+            color: var(--text-main);
+        }
+
+        .metric-alert {
+            margin-top: 14px;
+            font-size: 13.5px;
+            line-height: 1.5;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .metric-alert::before {
+            position: absolute;
+            left: 0;
+            top: 1px;
+            font-weight: bold;
+        }
+
+        .metric-alert.success { color: var(--accent-green); }
+        .metric-alert.success::before { content: "✅"; }
+
+        .metric-alert.warning { color: var(--accent-orange); }
+        .metric-alert.warning::before { content: "⚠️"; }
+
+        .metric-alert.danger { color: var(--accent-red); }
+        .metric-alert.danger::before { content: "❌"; }
+
+        .metric-alert.info { color: var(--text-main); }
+        .metric-alert.info::before { content: "🔗"; }
+
+        .conclusion-box {
+            border-radius: 18px;
+            padding: 18px;
+            text-align: center;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .conclusion-box.high-risk {
+            background-color: #FFEBEE;
+            border: 2px solid #FFCDD2;
+            color: var(--accent-red);
+        }
+
+        .conclusion-box.low-risk {
+            background-color: #E8F5E9;
+            border: 2px solid #C8E6C9;
+            color: var(--accent-green);
+        }
+
+        .conclusion-title {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .conclusion-desc {
+            font-size: 12.5px;
+            line-height: 1.4;
+            color: #555555;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo-area">
+                <span class="logo-emoji">🐊</span>
+                <h1>BABA CRYPTO</h1>
+            </div>
+            <p>Alat Riset On-Chain Koin Micin Potensi 100x (Multi-Chain)</p>
+        </div>
+
+        <div class="search-box">
+            <label for="caInput">MASUKKAN ALAMAT KONTRAK TOKEN (CA)</label>
+            <div class="input-group">
+                <input type="text" id="caInput" placeholder="Tempel CA Solana, BSC, ETH, dll..." autocomplete="off">
+                <button id="searchBtn" onclick="analyzeContract()">Riset</button>
+            </div>
+        </div>
+
+        <div id="profileCard" class="card">
+            <div class="card-title">📌 PROFIL ASET</div>
+            <div class="data-row">
+                <span class="data-label">Nama Token:</span>
+                <span class="data-value highlight" id="tokenName">-</span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Market Cap:</span>
+                <span class="data-value" id="marketCap">-</span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Total Likuiditas:</span>
+                <span class="data-value" id="liquidity">-</span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Volume 24 Jam:</span>
+                <span class="data-value" id="volume24h">-</span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Rasio Transaksi:</span>
+                <span class="data-value" id="txRatio">-</span>
+            </div>
+        </div>
+
+        <div id="testCard" class="card">
+            <div class="card-title">🔎 HASIL UJI & PROYEKSI 100X</div>
+            <div class="metric-alert info" id="networkDetect">Jaringan Terdeteksi: -</div>
+            <div id="dynamicAlerts"></div>
+        </div>
+
+        <div id="conclusionBox" class="conclusion-box">
+            <div class="conclusion-title" id="conclusionTitle"></div>
+            <div class="conclusion-desc" id="conclusionDesc"></div>
+        </div>
+    </div>
+
+    <script>
+        function fmtUsd(n) {
+            return '$' + Number(n || 0).toLocaleString('en-US');
+        }
+
+        async function analyzeContract() {
+            const rawInput = document.getElementById('caInput').value.trim();
+
+            if (!rawInput) {
+                alert("Silakan masukkan alamat kontrak (CA) terlebih dahulu.");
+                return;
+            }
+
+            const profileCard = document.getElementById('profileCard');
+            const testCard = document.getElementById('testCard');
+            const conclusionBox = document.getElementById('conclusionBox');
+
+            const tokenNameEl = document.getElementById('tokenName');
+            const marketCapEl = document.getElementById('marketCap');
+            const liquidityEl = document.getElementById('liquidity');
+            const volume24hEl = document.getElementById('volume24h');
+            const txRatioEl = document.getElementById('txRatio');
+            const networkDetectEl = document.getElementById('networkDetect');
+            const dynamicAlertsEl = document.getElementById('dynamicAlerts');
+            const conclusionTitleEl = document.getElementById('conclusionTitle');
+            const conclusionDescEl = document.getElementById('conclusionDesc');
+
+            const btn = document.getElementById('searchBtn');
+            const originalBtnText = btn.textContent;
+            btn.textContent = 'Memuat...';
+            btn.disabled = true;
+
+            profileCard.style.display = 'none';
+            testCard.style.display = 'none';
+            conclusionBox.style.display = 'none';
+
+            try {
+                const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${rawInput}`);
+                const data = await res.json();
+
+                if (!data.pairs || data.pairs.length === 0) {
+                    alert('Token tidak ditemukan di rantai manapun. Pastikan CA benar.');
+                    return;
+                }
+
+                const pair = data.pairs[0];
+                const chainId = pair.chainId.toUpperCase();
+
+                const mc = pair.fdv || pair.marketCap || 0;
+                const liq = pair.liquidity ? pair.liquidity.usd : 0;
+                const vol = pair.volume ? pair.volume.h24 : 0;
+                const buys = pair.txns?.h24?.buys || 0;
+                const sells = pair.txns?.h24?.sells || 0;
+                const totalTxs = buys + sells;
+                const buyRatio = totalTxs > 0 ? (buys / totalTxs) : 0;
+
+                tokenNameEl.textContent = `${pair.baseToken.name} (${pair.baseToken.symbol})`;
+                marketCapEl.textContent = fmtUsd(mc);
+                liquidityEl.textContent = fmtUsd(liq);
+                volume24hEl.textContent = fmtUsd(vol);
+                txRatioEl.textContent = `${buys} Beli / ${sells} Jual (${(buyRatio * 100).toFixed(1)}%)`;
+                networkDetectEl.textContent = `Jaringan Terdeteksi: ${chainId}`;
+
+                let alertsHtml = '';
+                let lulusKeamanan = true;
+                let lulusVolume = false;
+
+                if (liq < 15000) {
+                    alertsHtml += `<div class="metric-alert danger"><strong>Likuiditas Tipis:</strong> Kumpulan dana di bawah $15k. Sangat rawan jebakan pasar / slip harga tinggi.</div>`;
+                    lulusKeamanan = false;
+                } else {
+                    alertsHtml += `<div class="metric-alert success"><strong>Likuiditas Aman:</strong> Kolam dana cukup tebal untuk ritel.</div>`;
+                }
+
+                if (mc < 10000) {
+                    alertsHtml += `<div class="metric-alert danger"><strong>Matematika Cap:</strong> Market Cap terlalu mini (< $10k), kemungkinan proyek gagal/ditinggalkan.</div>`;
+                } else if (mc > 5000000) {
+                    alertsHtml += `<div class="metric-alert warning"><strong>Matematika Cap:</strong> Market cap saat ini sudah di atas $5M. Untuk pump 100x ke depan membutuhkan dana raksasa, peluang eksponensial berkurang.</div>`;
+                } else {
+                    const targetMc = mc * 100;
+                    alertsHtml += `<div class="metric-alert success"><strong>Matematika Cap Ideal:</strong> Target MC untuk 100x adalah ${fmtUsd(targetMc)}. Ruang pertumbuhan masih sangat lebar!</div>`;
+                }
+
+                if (buyRatio >= 0.60) {
+                    alertsHtml += `<div class="metric-alert success"><strong>Volume Akumulasi:</strong> Rasio beli mencapai ${(buyRatio * 100).toFixed(1)}%. Menunjukkan lebih banyak transaksi beli dibanding jual dalam 24 jam terakhir.</div>`;
+                    lulusVolume = true;
+                } else {
+                    alertsHtml += `<div class="metric-alert danger"><strong>Volume Distribusi:</strong> Rasio beli rendah (${(buyRatio * 100).toFixed(1)}%). Pasar didominasi aksi jual dalam 24 jam terakhir.</div>`;
+                }
+
+                dynamicAlertsEl.innerHTML = alertsHtml;
+
+                if (lulusKeamanan && lulusVolume && mc <= 5000000) {
+                    conclusionBox.className = 'conclusion-box low-risk';
+                    conclusionTitleEl.textContent = '🌟 KESIMPULAN: METRIK DASAR TERPENUHI';
+                    conclusionDescEl.textContent = 'Data on-chain menunjukkan pola positif. Ini bukan saran finansial — selalu lakukan riset mandiri (DYOR) sebelum mengambil keputusan.';
+                } else {
+                    conclusionBox.className = 'conclusion-box high-risk';
+                    conclusionTitleEl.textContent = '❌ KESIMPULAN: RISIKO TINGGI TERDETEKSI';
+                    conclusionDescEl.textContent = 'Struktur transaksi/likuiditas kurang sehat menurut metrik ini. Ini bukan saran finansial.';
+                }
+
+                profileCard.style.display = 'block';
+                testCard.style.display = 'block';
+                conclusionBox.style.display = 'block';
+
+            } catch (err) {
+                alert('Gagal menyambung ke jaringan blockchain. Coba lagi beberapa saat lagi.');
+            } finally {
+                btn.textContent = originalBtnText;
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
