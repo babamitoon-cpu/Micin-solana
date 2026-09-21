@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ SolHunter - Alat Riset 100x</title>
+    <title>🐊 BABA Crypto - Alat Riset 100x</title>
     <!-- Menggunakan CSS Tailwind (Play CDN) untuk tampilan ramah HP -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #0b0f19; color: #f3f4f6; }
+        body { background-color: #d9f7be; color: #14532d; }
     </style>
 </head>
 <body class="p-4 font-sans max-w-md mx-auto">
 
     <!-- Header -->
     <div class="text-center my-6">
-        <h1 class="text-3xl font-black text-indigo-400 tracking-wide">⚡ SOLHUNTER</h1>
-        <p class="text-xs text-gray-400 mt-1">Alat Riset On-Chain Koin Micin Potensi 100x</p>
+        <h1 class="text-3xl font-black text-emerald-700 tracking-wide">🐊 BABA CRYPTO</h1>
+        <p class="text-xs text-emerald-800 mt-1">Alat Riset On-Chain Koin Micin Potensi 100x</p>
     </div>
 
     <!-- Input Form -->
-    <div class="bg-gray-900 p-4 rounded-2xl border border-gray-800 shadow-xl mb-6">
-        <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">Masukkan Alamat Kontrak Token (CA)</label>
+    <div class="bg-white p-4 rounded-2xl border border-emerald-300 shadow-xl mb-6">
+        <label class="block text-xs font-bold text-emerald-700 mb-2 uppercase tracking-wider">Masukkan Alamat Kontrak Token (CA)</label>
         <div class="flex gap-2">
-            <input type="text" id="caInput" placeholder="Tempel CA Solana di sini..." 
-                class="w-full bg-gray-950 border border-gray-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-indigo-500 font-mono text-indigo-300">
+            <input type="text" id="caInput" placeholder="Tempel CA token di sini..." 
+                class="w-full bg-emerald-50 border border-emerald-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-emerald-600 font-mono text-emerald-800">
             <button onclick="mulaiRiset()" id="btnCari" 
-                class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 text-sm rounded-xl transition duration-200">
+                class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 text-sm rounded-xl transition duration-200">
                 Riset
             </button>
         </div>
@@ -33,27 +33,27 @@
 
     <!-- Loading State -->
     <div id="loader" class="hidden text-center py-8">
-        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500 mx-auto mb-2"></div>
-        <p class="text-xs text-gray-400">Mengambil data dari blockchain...</p>
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600 mx-auto mb-2"></div>
+        <p class="text-xs text-emerald-800">Mengambil data dari blockchain...</p>
     </div>
 
     <!-- Hasil Analisis -->
     <div id="hasil" class="hidden space-y-4">
         <!-- Profil -->
-        <div class="bg-gray-900 p-4 rounded-2xl border border-gray-800">
-            <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">📌 Profil Aset</h2>
+        <div class="bg-white p-4 rounded-2xl border border-emerald-300">
+            <h2 class="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-3">📌 Profil Aset</h2>
             <div class="space-y-2 text-sm">
-                <div class="flex justify-between"><span class="text-gray-400">Nama Token:</span> <span id="tNama" class="font-bold text-white"></span></div>
-                <div class="flex justify-between"><span class="text-gray-400">Market Cap:</span> <span id="tMc" class="font-bold text-emerald-400"></span></div>
-                <div class="flex justify-between"><span class="text-gray-400">Total Likuiditas:</span> <span id="tLiq" class="font-bold text-white"></span></div>
-                <div class="flex justify-between"><span class="text-gray-400">Volume 24 Jam:</span> <span id="tVol" class="font-bold text-white"></span></div>
-                <div class="flex justify-between"><span class="text-gray-400">Rasio Transaksi:</span> <span id="tRasio" class="font-bold text-indigo-300"></span></div>
+                <div class="flex justify-between"><span class="text-emerald-700">Nama Token:</span> <span id="tNama" class="font-bold text-emerald-900"></span></div>
+                <div class="flex justify-between"><span class="text-emerald-700">Market Cap:</span> <span id="tMc" class="font-bold text-emerald-700"></span></div>
+                <div class="flex justify-between"><span class="text-emerald-700">Total Likuiditas:</span> <span id="tLiq" class="font-bold text-emerald-900"></span></div>
+                <div class="flex justify-between"><span class="text-emerald-700">Volume 24 Jam:</span> <span id="tVol" class="font-bold text-emerald-900"></span></div>
+                <div class="flex justify-between"><span class="text-emerald-700">Rasio Transaksi:</span> <span id="tRasio" class="font-bold text-emerald-600"></span></div>
             </div>
         </div>
 
         <!-- Audit & Proyeksi -->
-        <div class="bg-gray-900 p-4 rounded-2xl border border-gray-800">
-            <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">🛡️ Hasil Uji & Proyeksi 100x</h2>
+        <div class="bg-white p-4 rounded-2xl border border-emerald-300">
+            <h2 class="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-3">🛡️ Hasil Uji & Proyeksi 100x</h2>
             <div id="logAnalisis" class="space-y-3 text-xs leading-relaxed"></div>
         </div>
 
@@ -70,21 +70,23 @@
             document.getElementById('hasil').classList.add('hidden');
 
             try {
-                // Menembak API Publik Dexscreener secara gratis tanpa API Key
+                // Menembak API Publik Dexscreener untuk multi-chain
                 const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${ca}`);
                 const data = await res.json();
 
                 document.getElementById('loader').classList.add('hidden');
 
                 if (!data.pairs || data.pairs.length === 0) {
-                    alert('Token tidak ditemukan. Pastikan koin berada di jaringan Solana dan CA benar.');
+                    alert('Token tidak ditemukan di rantai manapun. Pastikan CA benar.');
                     return;
                 }
 
-                const pair = data.pairs.find(p => p.chainId === 'solana') || data.pairs[0];
+                // Mengambil pool utama secara otomatis dari jaringan apa pun yang aktif
+                const pair = data.pairs[0];
+                const chainId = pair.chainId.toUpperCase();
                 
                 // Isi Profil Aset
-                document.getElementById('tNama').innerText = `${pair.baseToken.name} (${pair.baseToken.symbol})`;
+                document.getElementById('tNama').innerText = `${pair.baseToken.name} (${pair.baseToken.symbol}) [${chainId}]`;
                 const mc = pair.fdv || pair.marketCap || 0;
                 const liq = pair.liquidity ? pair.liquidity.usd : 0;
                 const vol = pair.volume ? pair.volume.h24 : 0;
@@ -99,34 +101,34 @@
                 document.getElementById('tRasio').innerText = `${buys} Beli / ${sells} Jual (${(buyRatio*100).toFixed(1)}%)`;
 
                 // Logika Algoritma Analisis 100x
-                let htmlLog = '';
+                let htmlLog = `<p class="text-emerald-700 font-bold mb-1">🔗 Jaringan Terdeteksi: ${chainId}</p>`;
                 let lulusKeamanan = true;
                 let lulusVolume = false;
 
                 // 1. Audit Likuiditas
                 if (liq < 15000) {
-                    htmlLog += `<p class="text-red-400">❌ <b>Likuiditas Tipis:</b> Kumpulan dana di bawah $15k. Sangat rawan jebakan pasar / slip harga tinggi.</p>`;
+                    htmlLog += `<p class="text-red-500">❌ <b>Likuiditas Tipis:</b> Kumpulan dana di bawah $15k. Sangat rawan jebakan pasar / slip harga tinggi.</p>`;
                     lulusKeamanan = false;
                 } else {
-                    htmlLog += `<p class="text-emerald-400">✅ <b>Likuiditas Aman:</b> Kolam dana cukup tebal untuk ritel.</p>`;
+                    htmlLog += `<p class="text-emerald-600">✅ <b>Likuiditas Aman:</b> Kolam dana cukup tebal untuk ritel.</p>`;
                 }
 
                 // 2. Matematika Batas Atas Pompa 100x
                 if (mc < 10000) {
-                    htmlLog += `<p class="text-red-400">❌ <b>Matematika Cap:</b> Market Cap terlalu mini (< $10k), kemungkinan proyek gagal/ditinggalkan.</p>`;
+                    htmlLog += `<p class="text-red-500">❌ <b>Matematika Cap:</b> Market Cap terlalu mini (< $10k), kemungkinan proyek gagal/ditinggalkan.</p>`;
                 } else if (mc > 5000000) {
-                    htmlLog += `<p class="text-yellow-400">⚠️ <b>Matematika Cap:</b> Market cap saat ini sudah di atas $5M. Untuk pump 100x ke depan membutuhkan dana raksasa, peluang eksponensial berkurang.</p>`;
+                    htmlLog += `<p class="text-yellow-600">⚠️ <b>Matematika Cap:</b> Market cap saat ini sudah di atas $5M. Untuk pump 100x ke depan membutuhkan dana raksasa, peluang eksponensial berkurang.</p>`;
                 } else {
                     const targetMc = mc * 100;
-                    htmlLog += `<p class="text-emerald-400">✅ <b>Matematika Cap Ideal:</b> Target MC untuk 100x adalah $${targetMc.toLocaleString()}. Ruang pertumbuhan masih sangat lebar!</p>`;
+                    htmlLog += `<p class="text-emerald-600">✅ <b>Matematika Cap Ideal:</b> Target MC untuk 100x adalah $${targetMc.toLocaleString()}. Ruang pertumbuhan masih sangat lebar!</p>`;
                 }
 
                 // 3. Deteksi Tekanan Beli/Jual
                 if (buyRatio >= 0.60) {
-                    htmlLog += `<p class="text-emerald-400">✅ <b>Volume Akumulasi:</b> Rasio beli mencapai ${(buyRatio*100).toFixed(1)}%. Menunjukkan lebih banyak transaksi beli dibanding jual dalam 24 jam terakhir.</p>`;
+                    htmlLog += `<p class="text-emerald-600">✅ <b>Volume Akumulasi:</b> Rasio beli mencapai ${(buyRatio*100).toFixed(1)}%. Menunjukkan lebih banyak transaksi beli dibanding jual dalam 24 jam terakhir.</p>`;
                     lulusVolume = true;
                 } else {
-                    htmlLog += `<p class="text-red-400">❌ <b>Volume Distribusi:</b> Rasio beli rendah (${(buyRatio*100).toFixed(1)}%). Pasar didominasi aksi jual dalam 24 jam terakhir.</p>`;
+                    htmlLog += `<p class="text-red-500">❌ <b>Volume Distribusi:</b> Rasio beli rendah (${(buyRatio*100).toFixed(1)}%). Pasar didominasi aksi jual dalam 24 jam terakhir.</p>`;
                 }
 
                 document.getElementById('logAnalisis').innerHTML = htmlLog;
@@ -134,11 +136,11 @@
                 // Kesimpulan Akhir
                 const box = document.getElementById('boxKesimpulan');
                 if (lulusKeamanan && lulusVolume && mc <= 5000000) {
-                    box.className = "p-4 rounded-2xl text-center font-bold text-sm border bg-emerald-950 text-emerald-400 border-emerald-800 shadow-md";
-                    box.innerHTML = "🌟 KESIMPULAN: METRIK DASAR TERPENUHI<br><span class='text-xs font-normal text-gray-300'>Data on-chain menunjukkan pola positif. Ini bukan saran finansial — selalu lakukan riset mandiri (DYOR) sebelum mengambil keputusan.</span>";
+                    box.className = "p-4 rounded-2xl text-center font-bold text-sm border bg-emerald-100 text-emerald-800 border-emerald-400 shadow-md";
+                    box.innerHTML = "🌟 KESIMPULAN: METRIK DASAR TERPENUHI<br><span class='text-xs font-normal text-emerald-700'>Data on-chain menunjukkan pola positif. Ini bukan saran finansial — selalu lakukan riset mandiri (DYOR) sebelum mengambil keputusan.</span>";
                 } else {
-                    box.className = "p-4 rounded-2xl text-center font-bold text-sm border bg-red-950 text-red-400 border-red-800";
-                    box.innerHTML = "❌ KESIMPULAN: RISIKO TINGGI TERDETEKSI<br><span class='text-xs font-normal text-gray-300'>Struktur transaksi/likuiditas kurang sehat menurut metrik ini. Ini bukan saran finansial.</span>";
+                    box.className = "p-4 rounded-2xl text-center font-bold text-sm border bg-red-100 text-red-700 border-red-300";
+                    box.innerHTML = "❌ KESIMPULAN: RISIKO TINGGI TERDETEKSI<br><span class='text-xs font-normal text-red-600'>Struktur transaksi/likuiditas kurang sehat menurut metrik ini. Ini bukan saran finansial.</span>";
                 }
 
                 document.getElementById('hasil').classList.remove('hidden');
